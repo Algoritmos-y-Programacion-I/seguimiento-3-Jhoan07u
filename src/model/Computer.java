@@ -1,6 +1,9 @@
 package model;
+import java.util.ArrayList;
 
 public class Computer {
+    private String serialnumber;
+    private Boolean nextWindow;
 
     /*
      * ATENCION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

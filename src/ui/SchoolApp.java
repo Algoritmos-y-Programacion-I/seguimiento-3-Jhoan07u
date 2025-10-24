@@ -76,6 +76,10 @@ public class SchoolApp {
      */
 
     public void registrarComputador() {
+        System.out.println("indique el serial del computador");
+        String serialnumber = input.nextLine();
+        System.out.println("indique el piso donde se ubica");
+
 
     }
 
