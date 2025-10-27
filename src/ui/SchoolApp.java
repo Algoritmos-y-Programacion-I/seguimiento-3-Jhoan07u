@@ -2,15 +2,22 @@ package ui;
 
 import java.util.Scanner;
 
+import model.Computer;
+import model.Incident;
+import model.SchoolController;
+
+
+
 public class SchoolApp {
+    private Scanner input;
+    private SchoolController controller;
+    
 
     /*
      * ATENCION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      * Agregue los atributos (relaciones) necesarios para conectar esta clase con el
      * modelo.
      */
-
-    private Scanner input;
 
     public static void main(String[] args) {
 
@@ -22,6 +29,7 @@ public class SchoolApp {
     // Constructor
     public SchoolApp() {
         input = new Scanner(System.in);
+        controller = new SchoolController();
     }
 
     /*
@@ -76,19 +84,50 @@ public class SchoolApp {
      */
 
     public void registrarComputador() {
+        input.nextLine();
         System.out.println("indique el serial del computador");
         String serialnumber = input.nextLine();
-        System.out.println("indique el piso donde se ubica");
+        System.out.println("Indique el piso donde se ubica (0-4):");
+        int floor = input.nextInt();
+        boolean agregado = controller.agregarComputador(serialnumber, floor);
+        if (agregado){
+            System.out.println("Computador registrado exitosamente.");
+        } else {
+            System.out.println("No se pudo registrar el computador.");
+        }
 
 
     }
 
     public void registrarIncidenteEnComputador() {
+        input.nextLine();
+        System.out.println("indique el serial del computador");
+        String serial = input.nextLine();
+        System.out.println("Describa el incidente:");
+        String description = input.nextLine();
+
+        Incident inc = new Incident (java.time.LocalDate.now(), description);
+        boolean ok = controller.agregarIncidenteEnComputador(serial, inc);
+        if (ok){
+            System.out.println("Incidente registrado exitosamente.");
+        } else {
+            System.out.println("No se pudo registrar el incidente.");
+        }
 
     }
 
     public void consultarComputadorConMasIncidentes() {
+        Computer comp = controller.consultarComputadorConMasIncidentes();
+
+        if (comp==null){
+            System.out.println("No hay computadores registrados.");
+        } else {
+            System.out.println("El computador con mas incidentes es:");
+            System.out.println(comp.toString());
+
+        }
 
     }
+
 
 }

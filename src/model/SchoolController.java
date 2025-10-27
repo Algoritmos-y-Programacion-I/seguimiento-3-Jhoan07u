@@ -47,18 +47,25 @@ public class SchoolController {
 
 
     public boolean agregarIncidenteEnComputador(String serial, Incident inc) {
-        for (int i=0; i<floors ; i ++){
-            for (int j=0; j<col; j++){
-                if (edificio[i][j]!=null && edificio[i][j].getSerialnumber().equals(serial)){
+        if(hourSpentSupport>=HOURMAXSUPPORT){
+            System.out.println("No se pueden agregar más incidentes, se ha alcanzado el maximo de horas de soporte :(.");
+            return false;
+        }
+        for (int i =0; i<floors; i++){
+            for (int j=0;j<col; j++){
+                if(edificio[i][j]!=null && edificio[i][j].getSerialnumber().equals(serial)){
                     edificio[i][j].addIncident(inc);
+                    hourSpentSupport += 1; 
+                    System.out.println("horas usadas: " + hourSpentSupport+ "/" + HOURMAXSUPPORT);
                     return true;
                 }
-
             }
         }
+        System.out.println("No se encuentra el computador con el serial indicado :(.");
         return false;
-
+          
     }
+    
     public Computer consultarComputadorConMasIncidentes() {
         Computer topComputer = null;
         int maxIncidents = -1;

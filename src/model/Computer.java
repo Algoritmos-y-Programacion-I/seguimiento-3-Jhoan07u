@@ -12,7 +12,7 @@ public class Computer {
         this.serialnumber = serialnumber;
         this.floor = floor;
         this.column = column;
-        this.incidents = new ArrayList<Incident>();
+        this.incidents = new ArrayList<>();
         
     }
     public String getSerialnumber() {
@@ -41,5 +41,14 @@ public class Computer {
     public int getIncidentCount() {
         return incidents.size();
     }
+    @Override
+    public String toString() {
+        return "Computador Serial: " + serialnumber + 
+           " Piso: " + floor + 
+           " Columna: " + column + 
+           " Incidentes: " + incidents.size() + "]";
+}
+
+
 
 }
