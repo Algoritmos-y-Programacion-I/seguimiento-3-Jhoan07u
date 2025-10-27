@@ -7,47 +7,51 @@ public class SchoolController {
     private final int col = 10;
     private final int HOURMAXSUPPORT = 100;
     private Computer[][] edificio;
-
-
-
-
-    public SchoolController(int floors, int col){
-        edificio = new Computer[floors][col];
-
-        
-        
     
 
 
 
 
-    }
-
-
-    /*
-     * ATENCION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     * Agregue los atributos (relaciones) necesarios para satisfacer los
-     * requerimientos.
-    
-    }
-    /*
-     * ATENCION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     * Los siguientes metodos estan incompletos.
-     * Añada los metodos que considere hagan falta para satisfacer los
-     * requerimientos.
-     * Para cada metodo:
-     * Agregue los parametros y retorno que sean pertinentes.
-     * Agregue la logica necesaria (instrucciones) para satisfacer los
-     * requerimientos.
-     */
-    public void agregarComputador(String serialNumber) {
-
-
+    public SchoolController(){
+        edificio = new Computer[5][10];
+        hourSpentSupport = 0;
+        
 
 
     }
+    public boolean agregarComputador(String serialNumber,int floor){
+        if (floor < 0 || floor >= floors) {
+            System.out.println("Piso inválido.");
+            return false;
+        }
+        for (int i = 0; i<floors; i++){
+            for (int j = 0; j<col; j++){
+                if (edificio[i][j] != null && edificio[i][j].getSerialnumber().equals(serialNumber)){
+                    return false;
+                }
+            }
+        }
+        for (int j =0 ; j<col; j++){
+            if (edificio[floor][j]==null){
+                edificio[floor][j] = new Computer (serialNumber, floor, j);
+                return true;
+            }
+        }
+        return false;
+    }
 
-    public void agregarIncidenteEnComputador() {
+
+    public boolean agregarIncidenteEnComputador(String serial, Incident inc) {
+        for (int i=0; i<floors ; i ++){
+            for (int j=0; j<col; j++){
+                if (edificio[i][j]!=null && edificio[i][j].getSerialnumber().equals(serial)){
+                    edificio[i][j].addIncident(inc);
+                    return true;
+                }
+
+            }
+        }
+        return false;
 
     }
 
